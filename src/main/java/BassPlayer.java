@@ -4,7 +4,7 @@
 public class BassPlayer implements Player {
 
     private int stream;
-    private Sound sound = null;
+    private boolean isPlaying = true;
 
     public BassPlayer() {
         BassLibrary.INSTANCE.BASS_Init(-1, 44100, 0, null, null);
@@ -12,12 +12,10 @@ public class BassPlayer implements Player {
 
     @Override
     public void play(String soundFilePath) throws InterruptedException {
-        if (BassLibrary.INSTANCE.BASS_ChannelIsActive(stream)) {
-            sound.interrupt();
-        }
         stream = BassLibrary.INSTANCE.BASS_StreamCreateFile(false, soundFilePath, 0, 0, 0);
         if (stream != 0 && BassLibrary.INSTANCE.BASS_ChannelPlay(stream, false)) {
-            sound = new Sound(stream);
+            while (isPlaying && BassLibrary.INSTANCE.BASS_ChannelIsActive(stream)) {
+            }
         } else {
             System.out.println(BassLibrary.INSTANCE.BASS_ErrorGetCode());
         }
@@ -26,17 +24,17 @@ public class BassPlayer implements Player {
     @Override
     public void stopPlaying() {
         BassLibrary.INSTANCE.BASS_ChannelStop(stream);
-        sound.interrupt();
+        isPlaying = false;
     }
 
     @Override
     public void pause() {
         BassLibrary.INSTANCE.BASS_ChannelPause(stream);
+        isPlaying = false;
     }
 
     @Override
     public void exit() {
-        sound.interrupt();
         BassLibrary.INSTANCE.BASS_Free();
     }
 

@@ -11,6 +11,7 @@ public interface BassLibrary extends Library {
                     BassLibrary.class);
     boolean BASS_Init(int device, int freq, int flags, Pointer win, Pointer dsguid);
     int BASS_StreamCreateFile(boolean mem, String file, int offset, int length, int flags);
+    int BASS_MusicLoad(boolean mem, Pointer file, int offset, int length, int flags, int freq);
     boolean BASS_ChannelPlay(int handle, boolean restart);
     int BASS_ErrorGetCode();
     boolean BASS_Free();
