@@ -9,6 +9,7 @@ public class Main {
         InputThread inputThread = new InputThread(player);
 
         inputThread.start();
+        player.play("test.mp3");
         inputThread.join();
     }
 }

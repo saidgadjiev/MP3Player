@@ -23,13 +23,6 @@ public class InputThread extends Thread {
                 case 'q':
                     isRunning = false;
                     break;
-                case 'p':
-                    try {
-                        player.play("test.mp3");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
                 case 's':
                     player.stopPlaying();
                     break;
