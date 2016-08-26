@@ -20,11 +20,18 @@ public class InputThread extends Thread {
         while (isRunning) {
             ccommand = scanner.next().charAt(0);
             switch (ccommand) {
-                case 'q':
-                    isRunning = false;
+                case 'p':
+                    System.out.println("Enter music path");
+                    Scanner scanner1 = new Scanner(System.in);
+                    String musicPath = scanner1.nextLine();
+
+                    player.play(musicPath);
                     break;
                 case 's':
                     player.stopPlaying();
+                    break;
+                case 'o':
+                    player.pause();
                     break;
                 case 'l':
                     player.resumePlaying();
@@ -37,6 +44,7 @@ public class InputThread extends Thread {
                     break;
                 case 'e':
                     player.exit();
+                    isRunning = false;
                     break;
             }
         }
